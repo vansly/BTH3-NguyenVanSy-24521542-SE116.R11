@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cafv37vlga7nj"]
+
+[ext_resource type="Script" uid="uid://bodl1rywheqcp" path="res://scenes/enemies/starfish/starfish.gd" id="1_yssi7"]
+[ext_resource type="Texture2D" uid="uid://b35vlmttvdep3" path="res://assets/monsters/starfish/starfish_sprite_sheet.png" id="2_yssi7"]
+[ext_resource type="AnimationLibrary" uid="uid://b6mdwitmfk172" path="res://scenes/enemies/starfish/starfish_anims.tres" id="3_gssss"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/components/hit_area_3d.gd" id="3_yssi7"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/components/hurt_area_3d.gd" id="4_gssss"]
+[ext_resource type="Script" uid="uid://beqw114kaatgr" path="res://scenes/enemies/starfish/states/run.gd" id="6_ff3tu"]
+[ext_resource type="Script" uid="uid://bbnk1aqi3udqi" path="res://scenes/enemies/starfish/states/attack.gd" id="7_724vs"]
+[ext_resource type="Script" uid="uid://belt5jfiht7cb" path="res://scenes/enemies/common_states/hurt.gd" id="8_ytcyy"]
+[ext_resource type="Script" uid="uid://bhv0avbrqmf7d" path="res://scenes/enemies/common_states/dead.gd" id="9_hqqr5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_577k6"]
+radius = 0.55
+height = 1.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gssss"]
+size = Vector3(4, 2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_577k6"]
+size = Vector3(1.4, 1, 1.4)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gssss"]
+height = 1.0
+
+[node name="Starfish" type="CharacterBody3D" unique_id=1014468259]
+collision_layer = 8
+script = ExtResource("1_yssi7")
+movement_speed = 2.0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1059295939]
+offset = Vector2(0, 14.5)
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_yssi7")
+hframes = 3
+vframes = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=512640687]
+libraries/ = ExtResource("3_gssss")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1231080512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_577k6")
+
+[node name="Direction" type="Node3D" parent="." unique_id=1527614269]
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" unique_id=2044075630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" unique_id=1335786036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction" unique_id=1162229458]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D" unique_id=839094987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+shape = SubResource("BoxShape3D_gssss")
+
+[node name="HitArea3D" type="Area3D" parent="Direction" unique_id=211567010]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_yssi7")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" unique_id=1277658624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_577k6")
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=316294684]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_gssss")
+metadata/_custom_type_script = "uid://coy8holsj103m"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=1264948556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_gssss")
+
+[node name="States" type="Node" parent="." unique_id=827148781]
+
+[node name="Run" type="Node" parent="States" unique_id=64374515]
+script = ExtResource("6_ff3tu")
+
+[node name="Attack" type="Node" parent="States" unique_id=1858073204]
+script = ExtResource("7_724vs")
+
+[node name="Hurt" type="Node" parent="States" unique_id=1087079439]
+script = ExtResource("8_ytcyy")
+
+[node name="Dead" type="Node" parent="States" unique_id=722401026]
+script = ExtResource("9_hqqr5")

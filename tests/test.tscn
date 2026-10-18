@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://xhkihsv74mso"]
+
+[ext_resource type="PackedScene" uid="uid://b3ydq6el35r7g" path="res://scenes/props/trap/trap.tscn" id="1_7y2ik"]
+[ext_resource type="PackedScene" uid="uid://cmmjhllqibaoc" path="res://scenes/props/palm_tree/palm_tree.tscn" id="1_ry45r"]
+[ext_resource type="PackedScene" uid="uid://k7cybuxtiqv2" path="res://scenes/enemies/seagull/seagull.tscn" id="1_ymr3d"]
+[ext_resource type="PackedScene" path="res://scenes/props/bush/bush.tscn" id="2_dsb46"]
+[ext_resource type="PackedScene" uid="uid://dp10o3xl1y7fw" path="res://scenes/characters/player/player.tscn" id="3_uofsi"]
+[ext_resource type="PackedScene" path="res://scenes/camera/camera_rig.tscn" id="4_jenrn"]
+[ext_resource type="PackedScene" uid="uid://pw26o3khod3a" path="res://scenes/enemies/barrel/barrel.tscn" id="5_dsb46"]
+[ext_resource type="PackedScene" uid="uid://cafv37vlga7nj" path="res://scenes/enemies/starfish/starfish.tscn" id="6_uofsi"]
+[ext_resource type="PackedScene" uid="uid://blprb5xu3nc2j" path="res://scenes/enemies/mushroom/mushroom.tscn" id="7_jenrn"]
+[ext_resource type="PackedScene" uid="uid://brh2vhsb7bbk0" path="res://scenes/props/iron_ore/iron_ore.tscn" id="8_mm0ke"]
+[ext_resource type="PackedScene" uid="uid://c517favw8aibn" path="res://scenes/enemies/crab/crab.tscn" id="11_7y2ik"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mm0ke"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5fw7c"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5fw7c"]
+size = Vector3(4, 2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7y2ik"]
+size = Vector3(4, 2, 4)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxaqg"]
+sky_horizon_color = Color(0.72, 0.85, 0.93, 1)
+ground_bottom_color = Color(0.44, 0.65, 0.84, 1)
+ground_horizon_color = Color(0.56, 0.75, 0.88, 1)
+
+[sub_resource type="Sky" id="Sky_x2dcf"]
+sky_material = SubResource("ProceduralSkyMaterial_vxaqg")
+
+[sub_resource type="Environment" id="Environment_rj716"]
+background_mode = 2
+sky = SubResource("Sky_x2dcf")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.53
+ambient_light_energy = 0.72
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.75, 0.87, 0.96, 1)
+fog_density = 1.0
+fog_depth_begin = 55.0
+fog_depth_end = 130.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mm0ke"]
+size = Vector3(30, 1, 30)
+
+[node name="Stage" type="Node3D" unique_id=257567156]
+
+[node name="World" type="Node3D" parent="." unique_id=1727953214]
+
+[node name="Ground" type="MeshInstance3D" parent="World" unique_id=1974067446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_mm0ke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Ground" unique_id=214576022]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground/StaticBody3D" unique_id=301465923]
+shape = SubResource("BoxShape3D_5fw7c")
+
+[node name="Platform" type="MeshInstance3D" parent="World" unique_id=1532110675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -3.6778336)
+mesh = SubResource("BoxMesh_5fw7c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Platform" unique_id=1254920639]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Platform/StaticBody3D" unique_id=950998191]
+shape = SubResource("BoxShape3D_7y2ik")
+
+[node name="Platform2" type="MeshInstance3D" parent="World" unique_id=211423046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.540726, 4.660079, -3.6778336)
+mesh = SubResource("BoxMesh_5fw7c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Platform2" unique_id=69852714]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Platform2/StaticBody3D" unique_id=1533075776]
+shape = SubResource("BoxShape3D_7y2ik")
+
+[node name="Platform3" type="MeshInstance3D" parent="World" unique_id=605028010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.540726, 7.0709043, 1.4536095)
+mesh = SubResource("BoxMesh_5fw7c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Platform3" unique_id=1572311489]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Platform3/StaticBody3D" unique_id=2041018054]
+shape = SubResource("BoxShape3D_7y2ik")
+
+[node name="PalmTree" parent="World" unique_id=1774627914 instance=ExtResource("1_ry45r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
+
+[node name="Bush" parent="World" unique_id=1453830553 instance=ExtResource("2_dsb46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 4)
+
+[node name="Player" parent="." unique_id=1418481694 instance=ExtResource("3_uofsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28785038, 26, -1.7919364)
+
+[node name="CameraRig" parent="." unique_id=1345940072 node_paths=PackedStringArray("target") instance=ExtResource("4_jenrn")]
+target = NodePath("../Player")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1964756885]
+transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
+light_energy = 0.35
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1590572246]
+environment = SubResource("Environment_rj716")
+
+[node name="Bullets" type="Node3D" parent="." unique_id=480643604]
+
+[node name="Bombs" type="Node3D" parent="." unique_id=561356333]
+
+[node name="Barrel" parent="." unique_id=1217721098 instance=ExtResource("5_dsb46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04856, 1.1807897, 3.155016)
+
+[node name="IronOre" parent="." unique_id=1806633892 instance=ExtResource("8_mm0ke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48194277, 4.532584, 5.3333273)
+
+[node name="IronOre2" parent="." unique_id=1056463806 instance=ExtResource("8_mm0ke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48194277, 4.532584, 8.629695)
+
+[node name="FlyZone" type="Area3D" parent="." unique_id=903976120]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlyZone" unique_id=1322121303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.605938, 9.815332)
+shape = SubResource("BoxShape3D_mm0ke")
+
+[node name="DestinationContainer" type="Node3D" parent="." unique_id=1041016772]
+
+[node name="Traps" type="Node3D" parent="." unique_id=1786405122]
+
+[node name="Trap" parent="Traps" unique_id=1052723530 instance=ExtResource("1_7y2ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.256648, 1.0699599, 10.505292)
+
+[node name="Trap2" parent="Traps" unique_id=1013937462 instance=ExtResource("1_7y2ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.278862, 1.0699599, 10.505292)
+
+[node name="Trap3" parent="Traps" unique_id=948962017 instance=ExtResource("1_7y2ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.278862, 1.0699599, 14.393367)
+
+[node name="Trap4" parent="Traps" unique_id=1681211254 instance=ExtResource("1_7y2ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.948031, 1.0699599, 14.393367)
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1411949247]
+
+[node name="Starfish" parent="Enemies" unique_id=1641625352 instance=ExtResource("6_uofsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.127726, 2.9186578, 0)
+
+[node name="Mushroom" parent="Enemies" unique_id=1367393181 instance=ExtResource("7_jenrn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85523033, 3.375, 4.9013405)
+
+[node name="Seagull" parent="Enemies" unique_id=1649644743 node_paths=PackedStringArray("fly_zone", "destination_container") instance=ExtResource("1_ymr3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.33885, 0)
+fly_zone = NodePath("../../FlyZone/CollisionShape3D")
+destination_container = NodePath("../../DestinationContainer")
+
+[node name="Seagull2" parent="Enemies" unique_id=1612347597 node_paths=PackedStringArray("fly_zone", "destination_container") instance=ExtResource("1_ymr3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.33885, 9.836948)
+fly_zone = NodePath("../../FlyZone/CollisionShape3D")
+destination_container = NodePath("../../DestinationContainer")
+
+[node name="Mushroom2" parent="Enemies" unique_id=1014468259 instance=ExtResource("7_jenrn")]
+
+[node name="Crab" parent="Enemies" unique_id=1976935928 instance=ExtResource("11_7y2ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4783478, 3.622429, -9.155627)

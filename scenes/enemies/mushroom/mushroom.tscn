@@ -1,0 +1,229 @@
+[gd_scene format=3 uid="uid://blprb5xu3nc2j"]
+
+[ext_resource type="Texture2D" uid="uid://d1bmdoh4let33" path="res://assets/monsters/mushroom/mushroom_sprite_sheet.png" id="2_cmcsj"]
+[ext_resource type="Script" uid="uid://d30xnh2g1fnbu" path="res://scenes/enemies/mushroom/mushroom.gd" id="2_w28am"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/components/hit_area_3d.gd" id="3_e68q8"]
+[ext_resource type="Script" uid="uid://cy72gfchj72t7" path="res://scenes/enemies/common_states/run.gd" id="4_aq6il"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/components/hurt_area_3d.gd" id="4_i5x11"]
+[ext_resource type="Script" uid="uid://blaff814ev5d4" path="res://scenes/enemies/mushroom/states/carried.gd" id="5_hn4ne"]
+[ext_resource type="Script" uid="uid://bncr5mggld4vr" path="res://scenes/enemies/mushroom/states/thrown.gd" id="6_e68q8"]
+[ext_resource type="Script" uid="uid://d3uljuf5wtusn" path="res://scenes/enemies/mushroom/states/hurt.gd" id="8_7xnnj"]
+[ext_resource type="Script" uid="uid://by854ea3abwln" path="res://scenes/enemies/mushroom/states/dead.gd" id="9_7xnnj"]
+
+[sub_resource type="Animation" id="Animation_w28am"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cmcsj"]
+resource_name = "run_down"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 6, 3]
+}
+
+[sub_resource type="Animation" id="Animation_b0ns1"]
+resource_name = "run_left"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_aq6il"]
+resource_name = "run_right"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hn4ne"]
+resource_name = "run_up"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 5, 8, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w28am"]
+_data = {
+&"RESET": SubResource("Animation_w28am"),
+&"run_down": SubResource("Animation_cmcsj"),
+&"run_left": SubResource("Animation_b0ns1"),
+&"run_right": SubResource("Animation_aq6il"),
+&"run_up": SubResource("Animation_hn4ne")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e68q8"]
+radius = 0.8625867
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uofsi"]
+radius = 0.49609375
+height = 1.0830078
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e68q8"]
+radius = 0.49365234
+height = 1.6186523
+
+[node name="Mushroom" type="CharacterBody3D" unique_id=1014468259]
+collision_layer = 8
+script = ExtResource("2_w28am")
+alternative_movement_speed = 4.5
+alternative_animation_speed_scale = 1.0
+alternative_jump_speed = 10.0
+max_health = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=217707403]
+offset = Vector2(0, 14)
+flip_h = true
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_cmcsj")
+hframes = 3
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=58185848]
+libraries/ = SubResource("AnimationLibrary_w28am")
+
+[node name="Direction" type="Node3D" parent="." unique_id=1020654113]
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" unique_id=2044075630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" unique_id=1335786036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="HitArea3D" type="Area3D" parent="Direction" unique_id=510995065]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_e68q8")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" unique_id=1565255911]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.00024414063, 0.70410156, 0)
+shape = SubResource("SphereShape3D_e68q8")
+debug_color = Color(1, 0.015686275, 0.015686275, 1)
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" unique_id=1512946975]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_i5x11")
+metadata/_custom_type_script = "uid://coy8holsj103m"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" unique_id=1230859675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7381592, 0)
+shape = SubResource("CapsuleShape3D_uofsi")
+debug_color = Color(1, 0.015686275, 0.015686275, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=175222734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7701416, 0)
+shape = SubResource("CapsuleShape3D_e68q8")
+debug_color = Color(0.01999998, 1, 0.47733337, 1)
+
+[node name="States" type="Node" parent="." unique_id=611354636]
+
+[node name="Run" type="Node" parent="States" unique_id=64374515]
+script = ExtResource("4_aq6il")
+
+[node name="Carried" type="Node" parent="States" unique_id=2057886893]
+script = ExtResource("5_hn4ne")
+
+[node name="Thrown" type="Node" parent="States" unique_id=215515753]
+script = ExtResource("6_e68q8")
+
+[node name="Hurt" type="Node" parent="States" unique_id=124743484]
+script = ExtResource("8_7xnnj")
+
+[node name="Dead" type="Node" parent="States" unique_id=428749139]
+script = ExtResource("9_7xnnj")

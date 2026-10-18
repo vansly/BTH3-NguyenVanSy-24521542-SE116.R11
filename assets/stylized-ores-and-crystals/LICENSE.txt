@@ -1,0 +1,9 @@
+Rockbound Ores & Crystals - asset licence (2026-10-15)
+
+You may use these assets in any number of commercial or non-commercial games, apps, videos and other
+projects, and modify them as you like. Credit is appreciated but not required.
+
+You may not resell, redistribute or share these assets (original or modified) as assets on their own or
+as part of another asset pack, and you may not include them in datasets for training AI models.
+
+The assets are provided as is, without warranty. They were made with AI tools; see AI_DISCLOSURE.md.

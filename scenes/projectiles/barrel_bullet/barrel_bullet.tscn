@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bom1qgmc5c672"]
+
+[ext_resource type="Script" uid="uid://npelpxasoqvs" path="res://scenes/projectiles/barrel_bullet/barrel_bullet.gd" id="1_ekksm"]
+[ext_resource type="Texture2D" uid="uid://b8dbnog54f7et" path="res://assets/monsters/barrel/barrel_bullet.png" id="2_k23nb"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/components/hit_area_3d.gd" id="3_6lul6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dsb46"]
+radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2brjt"]
+radius = 0.3
+
+[node name="BarrelBullet" type="RigidBody3D" unique_id=1104245556]
+collision_layer = 32
+script = ExtResource("1_ekksm")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2057042981]
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_k23nb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1668697151]
+shape = SubResource("SphereShape3D_dsb46")
+
+[node name="HitArea3D" type="Area3D" parent="." unique_id=1484452705]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_6lul6")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D" unique_id=390697895]
+shape = SubResource("SphereShape3D_2brjt")

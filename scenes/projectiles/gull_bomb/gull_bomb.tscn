@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://cnrj7ujdadq41"]
+
+[ext_resource type="Script" uid="uid://02n784fb2f2h" path="res://scenes/projectiles/gull_bomb/gull_bomb.gd" id="1_06mwo"]
+[ext_resource type="Texture2D" uid="uid://ctpsmnrp6x14v" path="res://assets/bomb_pack/fire/16x16/frame_1.png" id="2_eujpv"]
+[ext_resource type="Texture2D" uid="uid://b3csml2wk6tg8" path="res://assets/bomb_pack/fire/16x16/flame_1.png" id="3_ho5v3"]
+[ext_resource type="Texture2D" uid="uid://ck0m1qx1ahxgc" path="res://assets/bomb_pack/fire/16x16/flame_2.png" id="4_ascbu"]
+[ext_resource type="Texture2D" uid="uid://ramcc3y7uh2" path="res://assets/bomb_pack/fire/16x16/flame_3.png" id="5_n5ss5"]
+[ext_resource type="Texture2D" uid="uid://8b8mmw6g6lp1" path="res://assets/bomb_pack/fire/16x16/flame_4.png" id="6_qgsgl"]
+[ext_resource type="Texture2D" uid="uid://ddexylpnpl43y" path="res://assets/bomb_pack/fire/16x16/frame_2.png" id="7_32fca"]
+[ext_resource type="Texture2D" uid="uid://breds1fa3vd80" path="res://assets/bomb_pack/fire/16x16/frame_3.png" id="8_0rejy"]
+[ext_resource type="Texture2D" uid="uid://btok5e41gph1u" path="res://assets/bomb_pack/fire/16x16/frame_4.png" id="9_2fagf"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/components/hit_area_3d.gd" id="10_r5psr"]
+[ext_resource type="Script" uid="uid://d2lg5o5ni6hi5" path="res://scenes/projectiles/gull_bomb/states/fall.gd" id="11_ho5v3"]
+[ext_resource type="Script" uid="uid://bdu5cc4lb0qux" path="res://scenes/projectiles/gull_bomb/states/explode.gd" id="12_ascbu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ag7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eujpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ho5v3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ascbu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n5ss5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qgsgl")
+}],
+"loop": 0,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_32fca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0rejy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2fagf")
+}],
+"loop": 1,
+"name": &"fall",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aomxp"]
+radius = 0.45
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5eceg"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ie6wa"]
+
+[node name="GullBomb" type="CharacterBody3D" unique_id=626564742]
+collision_layer = 0
+script = ExtResource("1_06mwo")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1515314829]
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_7ag7e")
+animation = &"explode"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1437523676]
+shape = SubResource("SphereShape3D_aomxp")
+
+[node name="Direction" type="Node3D" parent="." unique_id=604034872]
+
+[node name="ExplosionHitArea3D" type="Area3D" parent="Direction" unique_id=145888271]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("10_r5psr")
+damage = 3
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/ExplosionHitArea3D" unique_id=1844665088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_5eceg")
+
+[node name="HitArea3D" type="Area3D" parent="Direction" unique_id=2090333802]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("10_r5psr")
+metadata/_custom_type_script = "uid://bvv36o7f0oebf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" unique_id=1165871566]
+shape = SubResource("SphereShape3D_ie6wa")
+
+[node name="States" type="Node" parent="." unique_id=1233018011]
+
+[node name="Fall" type="Node" parent="States" unique_id=899876159]
+script = ExtResource("11_ho5v3")
+
+[node name="Explode" type="Node" parent="States" unique_id=2129031160]
+script = ExtResource("12_ascbu")
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
